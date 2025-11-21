@@ -1,0 +1,33 @@
+# gt_funds_platform/docker-compose.yml
+
+version: '3.8'
+
+services:
+  # Definición del servicio de la base de datos MongoDB
+  mongodb:
+    image: mongo:latest               # Usa la imagen oficial más reciente de Mongo
+    container_name: gt_funds_mongodb  # Un nombre fácil de recordar para el contenedor
+    ports:
+      - "27017:27017"                 # Expone el puerto de Mongo a tu máquina local
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin # Define el usuario raíz para la DB
+      MONGO_INITDB_ROOT_PASSWORD: password # Define la contraseña. ¡CAMBIAR EN PRODUCCIÓN!
+    volumes:
+      - mongodb_data:/data/db         # Guarda los datos de la DB para que no se borren
+    restart: unless-stopped           # Reinicia el contenedor si se detiene inesperadamente
+
+  # Definición del servicio del gestor de colas RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management      # Usa la imagen de RabbitMQ con la interfaz de gestión web
+    container_name: gt_funds_rabbitmq # Nombre para el contenedor de RabbitMQ
+    ports:
+      - "5672:5672"                   # Puerto para la comunicación de la aplicación
+      - "15672:15672"                 # Puerto para la interfaz de administración web
+    environment:
+      RABBITMQ_DEFAULT_USER: guest    # Usuario por defecto para RabbitMQ
+      RABBITMQ_DEFAULT_PASS: guest    # Contraseña por defecto. ¡CAMBIAR EN PRODUCCIÓN!
+    restart: unless-stopped
+
+# Definición de los volúmenes (para persistencia de datos)
+volumes:
+  mongodb_data:

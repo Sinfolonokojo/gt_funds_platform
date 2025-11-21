@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_close",
+      "Bash(cat:*)",
+      "Bash(npm install:*)",
+      "Bash(pip install:*)",
+      "Bash(python -m py_compile:*)",
+      "Bash(python:*)",
+      "Bash(uvicorn:*)",
+      "Bash(timeout:*)",
+      "Bash(curl:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(nul)",
+      "Bash(tasklist:*)",
+      "Bash(taskkill:*)",
+      "Bash(venv/Scripts/pip install:*)",
+      "Bash(gh auth:*)",
+      "Bash(git config:*)",
+      "Bash(where git:*)",
+      "Bash(git init:*)",
+      "Bash(winget install:*)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" auth login --web --git-protocol https)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" repo create gt_funds_platform --public --source=. --remote=origin --push)",
+      "Bash(del \"\\?\\C:\\Users\\Admin\\Projects\\gt_funds_platform\\nul\" 2)",
+      "Bash(dir /b:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

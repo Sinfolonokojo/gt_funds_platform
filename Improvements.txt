@@ -1,0 +1,61 @@
+# Pending Improvements
+
+## UI/UX Improvements
+
+### 1. Update CyclesPage with new UI components
+- Replace alert() with toast notifications
+- Replace window.confirm() with ConfirmDialog
+- Add empty states
+- Add accessibility labels (ARIA)
+
+### 2. Add responsive table design for mobile
+- Create card view for tables on small screens
+- Hide less important columns on mobile
+- Add horizontal scroll indicators
+- Implement collapsible rows
+
+### 3. Implement form validation with React Hook Form
+- Install: react-hook-form, @hookform/resolvers, zod
+- Create validation schemas for all forms
+- Add real-time field validation
+- Show inline error messages
+- Disable submit button when form is invalid
+
+## Performance Improvements
+
+### 4. Fix N+1 query in dashboard endpoint
+- File: backend/app/api/cycles.py (lines 189-227)
+- Issue: Multiple queries inside loops for accounts and KYC info
+- Solution options:
+  - Use MongoDB aggregation pipeline with $lookup
+  - Batch fetch all related data before processing
+  - Cache KYC and account data within request scope
+- Impact: 151+ queries reduced to 3-4 queries for 100 accounts
+
+## Security Improvements
+
+### 5. Add rate limiting to API
+- Install: pip install slowapi
+- Add rate limiter middleware to FastAPI
+- Configure limits per endpoint:
+  - Login: 5 requests/minute
+  - Register: 3 requests/minute
+  - General API: 100 requests/minute
+- Example implementation:
+  ```python
+  from slowapi import Limiter
+  from slowapi.util import get_remote_address
+
+  limiter = Limiter(key_func=get_remote_address)
+  app.state.limiter = limiter
+
+  @router.post("/login")
+  @limiter.limit("5/minute")
+  async def login(request: Request, ...):
+      pass
+  ```
+
+### 6. Protect routes with authentication
+- Add `Depends(get_current_user)` to sensitive endpoints
+- Add `Depends(get_current_admin)` for admin-only routes
+- Create middleware for optional auth on public routes
